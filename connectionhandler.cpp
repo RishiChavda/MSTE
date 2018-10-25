@@ -22,7 +22,6 @@ void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 void ConnectionHandler::processMessages() {
 	size_t howMany = 0;
 	std::cout << "processMessages called\n" << std::endl;
-    std::vector<Order> serverOrders;
     OrderBook ob;
 	while ( !quitReceived_ ) {
 		{
@@ -61,7 +60,7 @@ void ConnectionHandler::processMessages() {
 					std::stringstream ss( remainder );
 					Order order;
 					ss >> order;
-                    serverOrders.push_back(order);
+                    ob.addOrder(order.clientId(), order);
 					std::streampos tellg = ss.tellg();
 					std::cout << "tellg says size of message " << tellg << "\n";
 					queue_.pop_front();
