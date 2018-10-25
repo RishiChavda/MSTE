@@ -1,6 +1,5 @@
 ALL: server client orderbook order
 
-OBJECTS = orderbook.o order.o matches.o orderqueue.o clienthandler.o orderbook.t.o order.t.o
 INCLUDE_DIRS = -I. -I/home/ibutt/googletest-master/googletest/include
 GTESTMAIN = /home/ibutt/googletest-master/googletest/make/gtest_main.a
 CPP11=-std=c++11
@@ -22,7 +21,7 @@ order.o: order.cpp order.h
 orderbook.o: orderbook.cpp orderbook.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
 	
-matches.o: matches.cpp matches.h
+match.o: match.cpp match.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
 
 orderqueue.o: orderqueue.cpp orderqueue.h
@@ -34,14 +33,14 @@ orderbook.t.o: orderbook.t.cpp orderbook.h
 order.t.o: order.t.cpp order.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^
 
-server: server.cpp connectionhandler.o order.o orderbook.o matches.o orderqueue.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o matches.o orderqueue.o $(LIBRARIES) -lpthread
+orderbook: orderbook.t.o orderbook.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+	
+order: order.t.o order.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+	
+server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o $(LIBRARIES) -lpthread
 
 client: client.cpp order.o
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(LIBRARIES) -lpthread
-	
-orderbook: orderbook.t.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
-	
-order: order.t.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
