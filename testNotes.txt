@@ -1,0 +1,25 @@
+Order
+- Constructor - default/parameterized
+- Getters
+- Setters
+- Serialization
+- Converting to string - empty/
+
+
+OrderBook
+
+
+OrderQueue
+
+
+ConnectionHandler
+
+
+Matches
+
+
+Client
+
+
+Server
+

@@ -1,0 +1,32 @@
+TODO
+WEDS
+    - System design + pseudotesting
+    - Class diagram (R)
+        - Add Matches
+        - Add OrderQueue
+        - Understand the role of each class
+
+
+- Test Order class
+- Template class for OrderBook
+
+- order.h - included headers
+- orderqueue - implement class
+- matches - implement class
+- orderbook.h - implement empty functions
+- client - change all floats to doubles
+- ...
+- Test cases
+- Code review - Look at comments
+
+PROCESS
+1. Client connects to server
+2. Client identifies itself
+3. Client sends orders
+4. Server identifies order matches
+    4.1. If there's a match (between a buy and a sell), send message to clients that order has been executed
+
+-----
+- Fixed MakeFile (compilation / linking stage error) (C)
+
+
