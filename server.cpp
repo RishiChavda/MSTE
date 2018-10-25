@@ -44,11 +44,17 @@ void handleConnection(tcp::socket socket) {
 //	boost::asio::write(*socket, boost::asio::buffer(message), ignored_error);
 }
 
-int main(){
+int main(int argc, char* argv[]){
 	try{
+        if (argc != 2) {
+            std::cerr << "Usage: " << argv[0] << " <port>\n";
+            return 1;
+        }
+        
 		boost::asio::io_service io_service;
-		std::cout<<"Started server listening on localhost:3000\n"; //TASK make 3000 dynamic
-		tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 3000));
+		std::cout<<"Started server listening on localhost:" << argv[1] << "\n"; //TASK make 3000 dynamic
+        int port = std::stoi(argv[1]);
+		tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), port));
 		int clientNum=0;
 		std::vector<std::thread>connectionHandlerThreads;
 		for (;;){
@@ -63,3 +69,14 @@ int main(){
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
