@@ -3,20 +3,44 @@
 #include <boost/asio.hpp>
 #include "order.h"
 #include <cstdlib>
+#include <math.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 using boost::asio::ip::tcp;
 
 int orderId=0;
 std::string instruments[]{"VOD.L","HSBA.L"};
-size_t sizes[]{1763,2024};
-float benchmarkPrices[]{1.23,2.76}; //TODO change all floats to doubles
+int sizes[]{1763,2024};
+double benchmarkPrices[]{1.23,2.76}; //TODO change all floats to doubles
+
+double randomDoubleWithinRange(double min, double max) {
+    srand(time(NULL));   
+    double f = (double)rand() / RAND_MAX;
+    return min + f * (max - min);
+}
+
+int randomIntWithinRange(int min, int max) {
+    srand(time(NULL));
+    return rand() % (max - min + 1) + min;
+}
 
 void sendNewOrder( tcp::socket& socket ) {
 	boost::system::error_code ignored_error;
-	int instIndex=orderId%2;
+	int size = randomIntWithinRange(sizes[0], sizes[1]);
+    double price = roundf(randomDoubleWithinRange(benchmarkPrices[0], benchmarkPrices[1]) * 100) / 100;
+    int instrumentIndex = randomIntWithinRange(0, 1);
+    bool isBuy = randomIntWithinRange(0, 1);
+    Order::Direction direction;
+    if(isBuy) {
+        direction = Order::Buy;
+    }
+    else {
+        direction = Order::Sell;
+    }
     //TODO change from modulo to random
-    
-	Order newOrder( { instruments[instIndex], Order::Buy, sizes[instIndex], benchmarkPrices[instIndex]} ); //TODO make the numbers random
+	Order newOrder(instruments[instrumentIndex], direction, size, price); //TODO make the numbers random
 	std::cout<<"Sending order "<<orderId++<<" "<<newOrder.toString()<<"\n";
 	//TASK change the protocol to include the order id
 	//TASK change the protocol to FIX
@@ -26,7 +50,7 @@ void sendNewOrder( tcp::socket& socket ) {
 int main(int argc, char* argv[]){
 	try{
 		if (argc != 4){
-			std::cerr << "Usage: client <host> <port> <clientid>\n";
+			std::cerr << "Usage: " << argv[0] << " <host> <port> <clientid>\n";
 			return 1;
 		}
 
