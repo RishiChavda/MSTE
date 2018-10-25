@@ -2,6 +2,7 @@
 #include "order.h"
 #include <iostream>
 #include <sstream>
+#include "client.h"
 
 void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 	std::cout << "queueMessage called";
@@ -34,11 +35,12 @@ void ConnectionHandler::processMessages() {
 					queue_.pop_front();
 				} else if ( "HELLO_I_AM" == message.substr(0, 10) ) {
 					userIdentifiedAs_ = message.substr(10);
-					std::cout << "HELLO_I_AM was received '" <<userIdentifiedAs_ << "'\n";
+					std::cout << "HELLO_I_AM was received '" << userIdentifiedAs_ << "'\n";
+                    Client client(std::stoi(userIdentifiedAs_));
 					queue_.pop_front();
 				} else if ( "NEW_ORDER" == message.substr(0, 9) ) {
 					std::string remainder = message.substr(9);
-					std::cout << "NEW_ORDER was received '" <<remainder << "'\n";
+					std::cout << "NEW_ORDER was received '" << remainder << "'\n";
 					//std::stringstream ss( remainder, std::ios::binary );
 					std::stringstream ss( remainder );
 					Order order;
@@ -87,11 +89,11 @@ void ConnectionHandler::processMessages() {
 	std::cout << " leaving processMessages\n";
 }
 
-void ConnectionHandler::start( ) {
+void ConnectionHandler::start() {
 	quitReceived_ = false;
 	thread_ = std::thread( &ConnectionHandler::processMessages, this );
 }
 
-void ConnectionHandler::join( ) {
+void ConnectionHandler::join() {
 	thread_.join();
 }
