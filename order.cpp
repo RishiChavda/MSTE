@@ -41,7 +41,7 @@ Order::Order( const std::string& symbol, Direction direction,
 		direction_( direction ),
 		quantity_( quantity ),
 		limitPrice_( limitPrice ),
-        clientId_(clientId){
+        clientId_(clientId) {
 }
 
 std::string Order::serialise() const {
@@ -61,6 +61,6 @@ std::string Order::toString() const {
 	return oss.str();
 }
 
-int Order::clientId() {
+int Order::clientId() const {
     return clientId_;
 }

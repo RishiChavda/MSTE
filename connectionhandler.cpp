@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include "client.h"
+#include <map>
 
 void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 	std::cout << "queueMessage called";
@@ -20,35 +21,54 @@ void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 void ConnectionHandler::processMessages() {
 	size_t howMany = 0;
 	std::cout << "processMessages called\n" << std::endl;
+    std::vector<Order> serverOrders;
 	while ( !quitReceived_ ) {
 		{
 			std::lock_guard<std::mutex> lock( mutex_ );
+            
 			if ( queue_.empty() ) {
+                
 				//std::cout << "the queue is empty" << std::endl;
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                
 			} else {
+                
 				std::cout << "got a message, so far we have " << howMany << " orders\n";
 				const std::string message = queue_.front();
+                
 				if ( "QUIT" == message.substr(0, 4) ) {
+                    
 					quitReceived_ = true;
 					std::cout << "QUIT was received\n";
 					queue_.pop_front();
+                    
 				} else if ( "HELLO_I_AM" == message.substr(0, 10) ) {
+                    
 					userIdentifiedAs_ = message.substr(10);
 					std::cout << "HELLO_I_AM was received '" << userIdentifiedAs_ << "'\n";
                     Client client(std::stoi(userIdentifiedAs_));
+                    serverClients.insert ( std::pair<int,Client>(std::stoi(userIdentifiedAs_), client) );
 					queue_.pop_front();
+                    
 				} else if ( "NEW_ORDER" == message.substr(0, 9) ) {
+                    
+                    std::map<int,Client>::iterator it;
 					std::string remainder = message.substr(9);
 					std::cout << "NEW_ORDER was received '" << remainder << "'\n";
 					//std::stringstream ss( remainder, std::ios::binary );
 					std::stringstream ss( remainder );
 					Order order;
 					ss >> order;
+                    serverOrders.push_back(order);
 					std::streampos tellg = ss.tellg();
 					std::cout << "tellg says size of message " << tellg << "\n";
 					queue_.pop_front();
 					//ss.ignore( ss.tellg() );
+                    it = serverClients.find(order.clientId());
+                    if(it != serverClients.end()) {
+                        it->second.addOrder(order);
+                    }
+                    
 					if (tellg == -1) {
 						std::ios::iostate ios = ss.rdstate();
 						if ( ss.eof() ) {

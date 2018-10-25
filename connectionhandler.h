@@ -6,7 +6,7 @@
 #include <deque>
 #include <string>
 #include <mutex>
-#include <vector>
+#include <map>
 
 class ConnectionHandler {
 private:
@@ -15,7 +15,7 @@ private:
 	bool quitReceived_;
 	std::mutex mutex_;
 	std::string userIdentifiedAs_;
-    std::vector<Client> serverClients;
+    std::map<int, Client> serverClients;
 private:
 	void processMessages();
 public:

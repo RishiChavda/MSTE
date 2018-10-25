@@ -1,19 +1,18 @@
 #ifndef OrderBook_h_
 #define OrderBook_h_
 
-#include <thread>
-#include <deque>
-#include <string>
-#include <mutex>
 #include "order.h"
 #include "orderqueue.h"
 #include "match.h"
+#include <string>
 
 class OrderBook {
 private:
     OrderQueue buyOrders_;
     OrderQueue sellOrders_;
 public:
+    OrderBook() = default;
+    OrderBook(OrderQueue buys, OrderQueue sells);
     void addOrder(const std::string& client, const Order& order);
 
     /**
