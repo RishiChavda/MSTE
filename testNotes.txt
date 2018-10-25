@@ -1,9 +1,4 @@
 Order
-- Constructor - default/parameterized
-- Getters
-- Setters
-- Serialization
-- Converting to string - empty/
 
 
 OrderBook

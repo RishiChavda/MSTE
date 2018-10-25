@@ -17,14 +17,28 @@ private:
     Direction direction_;
     size_t quantity_;
     double limitPrice_;
+    int clientId_;
 public:
-    Order( const std::string& symbol, Direction direction,
-        size_t quantity, float limitPrice );
+    Order(const std::string& symbol, Direction direction,
+        size_t quantity, double limitPrice, int clientId);
     std::string serialise() const;
+    double getLimitPrice() const;
     Order() = default;
     std::string toString() const;
+    bool operator> (const Order &o1);
 };
 
 std::istream& operator>>( std::istream& is, Order& order );
+
+inline
+double Order::getLimitPrice() const {
+    return limitPrice_;
+}
+
+inline
+bool Order::operator> (const Order &c1) {
+    return getLimitPrice() > c1.getLimitPrice();
+}
+
 
 #endif // Order_h_

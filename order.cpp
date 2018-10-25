@@ -21,29 +21,32 @@ std::istream& operator>>( std::istream& is, Order& order ){
 	std::string symbol;
 	Order::Direction direction;
 	size_t quantity;
-	float limitPrice;
+	double limitPrice;
+	int clientId;
 
 	is >> symbol;
 	if ( is.eof() ) return is;
 	is >> direction;
 	is >> quantity;
 	is >> limitPrice;
-
-	order = Order(symbol, direction, quantity, limitPrice);
+	is >> clientId;
+    
+    order = Order(symbol, direction, quantity, limitPrice, clientId);
 	return is;
 }
 
 Order::Order( const std::string& symbol, Direction direction,
-		size_t quantity, float limitPrice ) :
+		size_t quantity, double limitPrice, int clientId ) :
 		symbol_( symbol ),
 		direction_( direction ),
 		quantity_( quantity ),
-		limitPrice_( limitPrice ){
+		limitPrice_( limitPrice ),
+        clientId_(clientId) {
 }
 
 std::string Order::serialise() const {
 	std::ostringstream oss;
-	oss << symbol_ << " " << static_cast<char>(direction_) << " " << quantity_ << " " << limitPrice_;
+	oss << symbol_ << " " << static_cast<char>(direction_) << " " << quantity_ << " " << limitPrice_ << " " << clientId_;
 	return oss.str();
 }
 
@@ -53,6 +56,7 @@ std::string Order::toString() const {
 		<< "' direction '" << static_cast<char>(direction_)
 		<< "' quantity '" << quantity_
 		<< "' limit price '" << limitPrice_
+		<< "' client id '" << clientId_
 		<< "' }";
 	return oss.str();
 }

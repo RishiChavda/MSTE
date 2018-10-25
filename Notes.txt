@@ -1,13 +1,7 @@
 TODO
 
-- System design + pseudotesting
-
-- orderqueue - implement class
-- matches - implement class
-- orderbook.h - implement empty functions
-- client - change all floats to doubles
-
 - ...
+
 - Template class for OrderBook
 - Test cases
 - Code review - Look at comments
@@ -26,3 +20,9 @@ PROCESS
 - (R) Added Match and OrderQueue classes
 - (R) Added dynamic server port
 - (C) Randomized the order prices/quantity
+- (C) Changed doubles to floats
+- (R) Implemented OrderQueue and OrderBook methods
+- (C) New orders have a client id number
+- (R) Added OrderBook class and OrderQueue insertion
+- (C) Stores server clients in a map
+- (R) Tested OrderQueue and OrderBook

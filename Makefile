@@ -1,4 +1,4 @@
-ALL: server client orderbook order
+ALL: server client orderbook order orderqueue
 
 INCLUDE_DIRS = -I. -I/home/ibutt/googletest-master/googletest/include
 GTESTMAIN = /home/ibutt/googletest-master/googletest/make/gtest_main.a
@@ -10,7 +10,7 @@ LIBRARIES= \
 CPPFLAGSWITHGTEST=$(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) $(GTESTMAIN)
 
 clean:
-	-rm -f server client orderbook order *.o *.gch
+	-rm -f server client orderbook orderqueue order *.o *.gch
 
 connectionhandler.o: connectionhandler.cpp connectionhandler.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
@@ -26,7 +26,10 @@ match.o: match.cpp match.h
 
 orderqueue.o: orderqueue.cpp orderqueue.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
-	
+
+orderqueue.t.o: orderqueue.t.cpp orderqueue.h order.h
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^	
+
 orderbook.t.o: orderbook.t.cpp orderbook.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^	
 	
@@ -34,13 +37,16 @@ order.t.o: order.t.cpp order.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^
 	
 server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o $(LIBRARIES) -lpthread
+	g++ $(CPP11) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o $(LIBRARIES) -lpthread
 
 client: client.cpp order.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(LIBRARIES) -lpthread
+	g++ $(CPP11) -o $@ $^ $(LIBRARIES) -lpthread
 	
-orderbook: orderbook.t.o orderbook.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+orderbook: orderbook.t.o orderbook.o orderqueue.o order.o
+	g++ $(CPP11) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
 	
 order: order.t.o order.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+	g++ $(CPP11) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+
+orderqueue : orderqueue.t.o orderqueue.o order.o
+	g++ $(CPP11) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread

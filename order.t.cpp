@@ -14,7 +14,7 @@ TEST(Constructor, ValidInput) {
   
     int instIndex=orderId%2;
     
-    Order newOrder( instruments[0], Order::Buy, sizes[0], benchmarkPrices[0] );
+    Order newOrder( instruments[0], Order::Buy, sizes[0], benchmarkPrices[0], 5 );
 	
     EXPECT_EQ("{ Order symbol 'VOD.L' direction 'B' quantity '1763' limit price '1.23' }", newOrder.toString());
 }
@@ -30,7 +30,7 @@ TEST(Constructor, AlternateValidInput) {
   
     int instIndex=orderId%2;
     
-    Order newOrder( "BT.A", Order::Sell, 300, 54.67 );
+    Order newOrder( "BT.A", Order::Sell, 300, 54.67, 5 );
 	
     EXPECT_EQ("{ Order symbol 'BT.A' direction 'S' quantity '300' limit price '54.67' }", newOrder.toString());
 }
