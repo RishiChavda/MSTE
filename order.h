@@ -16,7 +16,7 @@ private:
     std::string symbol_;
     Direction direction_;
     size_t quantity_;
-    float limitPrice_;
+    double limitPrice_;
 public:
     Order( const std::string& symbol, Direction direction,
         size_t quantity, float limitPrice );
@@ -25,6 +25,6 @@ public:
     std::string toString() const;
 };
 
-std::istream& operator>>( std::istream&, Order& );
+std::istream& operator>>( std::istream& is, Order& order );
 
 #endif // Order_h_

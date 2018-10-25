@@ -7,7 +7,7 @@
 #include <mutex>
 #include "order.h"
 #include "orderqueue.h"
-#include "matches.h"
+#include "match.h"
 
 class OrderBook {
 private:
@@ -19,7 +19,7 @@ public:
     /**
      * Look for matches, execute the matches, and return the fills
      */
-    Matches findAndExecuteMatches();
+    Match findAndExecuteMatches();
 };
 
 std::istream& operator>>( std::istream&, Order& );
