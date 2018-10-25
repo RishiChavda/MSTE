@@ -60,3 +60,7 @@ std::string Order::toString() const {
 		<< "' }";
 	return oss.str();
 }
+
+int Order::clientId() {
+    return clientId_;
+}

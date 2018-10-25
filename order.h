@@ -23,6 +23,7 @@ public:
     std::string serialise() const;
     Order() = default;
     std::string toString() const;
+    int clientId();
 };
 
 std::istream& operator>>( std::istream& is, Order& order );
