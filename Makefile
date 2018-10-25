@@ -27,16 +27,19 @@ match.o: match.cpp match.h
 orderqueue.o: orderqueue.cpp orderqueue.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
 	
+client.o: client.cpp client.h
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -c $^
+	
 orderbook.t.o: orderbook.t.cpp orderbook.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^	
 	
 order.t.o: order.t.cpp order.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^
 	
-server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o $(LIBRARIES) -lpthread
+server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o client.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o client.o $(LIBRARIES) -lpthread
 
-client: client.cpp order.o
+client: clientCreator.cpp order.o
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(LIBRARIES) -lpthread
 	
 orderbook: orderbook.t.o orderbook.o

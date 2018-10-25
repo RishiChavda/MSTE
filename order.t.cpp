@@ -3,34 +3,26 @@
 #include <iostream>
 #include <string>
 
-TEST(Constructor, ValidInput) {
-    
-    int orderId=0;
-    std::string instruments[]{"VOD.L","HSBA.L"};
-    int sizes[]{1763,2024};
-    double benchmarkPrices[]{1.23,2.76};  
-    
-    Order::Direction direction;
-  
-    int instIndex=orderId%2;
-    
-    Order newOrder( instruments[0], Order::Buy, sizes[0], benchmarkPrices[0] );
+TEST(Constructor, ValidInputBuy) {
+    Order newOrder( "BT.A", Order::Buy, 300, 54.67, 1 );
 	
-    EXPECT_EQ("{ Order symbol 'VOD.L' direction 'B' quantity '1763' limit price '1.23' }", newOrder.toString());
+    EXPECT_EQ("{ Order symbol 'BT.A' direction 'B' quantity '300' limit price '54.67' client id '1' }", newOrder.toString());
 }
 
-TEST(Constructor, AlternateValidInput) {
-    
-    int orderId=0;
-    std::string instruments[]{"VOD.L","HSBA.L"};
-    int sizes[]{1763,2024};
-    double benchmarkPrices[]{1.23,2.76};  
-    
-    Order::Direction direction;
-  
-    int instIndex=orderId%2;
-    
-    Order newOrder( "BT.A", Order::Sell, 300, 54.67 );
+TEST(Constructor, ValidInputSell) {
+    Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
 	
-    EXPECT_EQ("{ Order symbol 'BT.A' direction 'S' quantity '300' limit price '54.67' }", newOrder.toString());
+    EXPECT_EQ("{ Order symbol 'BT.A' direction 'S' quantity '300' limit price '54.67' client id '1' }", newOrder.toString());
+}
+
+TEST(Serialise, ValidInputBuy) {
+    Order newOrder( "BT.A", Order::Buy, 300, 54.67, 1 );
+	
+    EXPECT_EQ("BT.A B 300 54.67 1", newOrder.serialise());
+}
+
+TEST(Serialise, ValidInputSell) {
+    Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
+	
+    EXPECT_EQ("BT.A S 300 54.67 1", newOrder.serialise());
 }

@@ -17,9 +17,9 @@ private:
     Direction direction_;
     size_t quantity_;
     double limitPrice_;
+    int clientId_;
 public:
-    Order( const std::string& symbol, Direction direction,
-        size_t quantity, float limitPrice );
+    Order( const std::string& symbol, Direction direction, size_t quantity, double limitPrice, int clientId );
     std::string serialise() const;
     Order() = default;
     std::string toString() const;
