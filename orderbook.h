@@ -13,7 +13,7 @@ private:
 public:
     OrderBook() = default;
     OrderBook(OrderQueue buys, OrderQueue sells);
-    void addOrder(const std::string& client, const Order& order);
+    void addOrder(int client, Order& order);
 
     /**
      * Look for matches, execute the matches, and return the fills

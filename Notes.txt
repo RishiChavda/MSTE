@@ -1,28 +1,35 @@
 TODO
 
-- ...
+THURSDAY
+- C - Finish server handling orders
+- R - OrderQueue/OrderBook
+
+FRIDAY
+- Revise class diagram
+- Testing
+- Document/Comments
+- Code review
 
 - Template class for OrderBook
-- Test cases
-- Code review - Look at comments
 
 PROCESS
 1. Client connects to server
 2. Client identifies itself
 3. Client sends orders
 4. Server identifies order matches
-    4.1. If there's a match (between a buy and a sell), send message to clients that order has been executed
+4.1. If there's a match (between a buy and a sell), send message to clients that order has been executed
 
 -----
 - (C) Fixed MakeFile (compilation / linking stage error)
 - (C) Created Order.t.cpp test cases and added test file to build
+- (C) Stores server clients in a map
+- (C) New orders have a client id number
+- (C) Changed doubles to floats
+- (C) Randomized the order prices/quantity
+
 - (R) Class diagram
 - (R) Added Match and OrderQueue classes
 - (R) Added dynamic server port
-- (C) Randomized the order prices/quantity
-- (C) Changed doubles to floats
 - (R) Implemented OrderQueue and OrderBook methods
-- (C) New orders have a client id number
 - (R) Added OrderBook class and OrderQueue insertion
-- (C) Stores server clients in a map
 - (R) Tested OrderQueue and OrderBook

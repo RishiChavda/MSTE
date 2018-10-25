@@ -26,6 +26,7 @@ public:
     std::string toString() const;
     int clientId() const;
     bool operator> (const Order &o1);
+    bool isBuy();
 };
 
 std::istream& operator>>( std::istream& is, Order& order );

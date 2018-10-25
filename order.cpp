@@ -64,3 +64,7 @@ std::string Order::toString() const {
 int Order::clientId() const {
     return clientId_;
 }
+
+bool Order::isBuy() {
+    return (direction_ == Order::Buy ? true : false);
+}

@@ -21,5 +21,6 @@ TEST(OrderQueue, CreationAndInsertion) {
     oq1.removeHighestPriority();
     std::cout << "\n" << oq1.getHighestPriority().toString() << "\n";
     
-   
+    
+    
 }

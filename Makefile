@@ -43,7 +43,7 @@ server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o 
 	g++ $(CPP11) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o client.o $(LIBRARIES) -lpthread
 
 client: clientCreator.cpp order.o
-	g++ $(CPP11) -o $@ order.o $(LIBRARIES) -lpthread
+	g++ $(CPP11) -o $@ clientCreator.cpp order.o $(LIBRARIES) -lpthread
 	
 orderbook: orderbook.t.o orderbook.o orderqueue.o order.o
 	g++ $(CPP11) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread

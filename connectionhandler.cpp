@@ -1,5 +1,6 @@
 #include "connectionhandler.h"
 #include "order.h"
+#include "orderbook.h"
 #include <iostream>
 #include <sstream>
 #include "client.h"
@@ -22,6 +23,7 @@ void ConnectionHandler::processMessages() {
 	size_t howMany = 0;
 	std::cout << "processMessages called\n" << std::endl;
     std::vector<Order> serverOrders;
+    OrderBook ob;
 	while ( !quitReceived_ ) {
 		{
 			std::lock_guard<std::mutex> lock( mutex_ );
@@ -105,6 +107,8 @@ void ConnectionHandler::processMessages() {
 			}
 		} //TASK some reason for this?
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        
+        
 	}
 	std::cout << " leaving processMessages\n";
 }
