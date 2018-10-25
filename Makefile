@@ -32,15 +32,15 @@ orderbook.t.o: orderbook.t.cpp orderbook.h
 	
 order.t.o: order.t.cpp order.h
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) $(INCLUDE_DIRS) -c $^
-
-orderbook: orderbook.t.o orderbook.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
-	
-order: order.t.o order.o
-	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
 	
 server: server.cpp connectionhandler.o order.o orderbook.o match.o orderqueue.o
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ server.cpp order.o orderbook.o connectionhandler.o match.o orderqueue.o $(LIBRARIES) -lpthread
 
 client: client.cpp order.o
 	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(LIBRARIES) -lpthread
+	
+orderbook: orderbook.t.o orderbook.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
+	
+order: order.t.o order.o
+	g++ $(CPP11) $(COMPILE_FOR_DEBUG) -o $@ $^ $(GTESTMAIN) $(LIBRARIES) -lpthread
