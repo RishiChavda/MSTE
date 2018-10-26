@@ -3,8 +3,7 @@
 #include "orderbook.h"
 #include "orderqueue.h"
 
-TEST (Constructor, ValidInput)
-{
+TEST (Constructor, ValidInput) {
     OrderQueue buy;
     OrderQueue sell;
     
@@ -19,12 +18,48 @@ TEST (Constructor, ValidInput)
     // TODO: FIND A WAY TO TEST THIS
 }
 
-TEST (OrderBookTest, test2)
-{
+//TODO Complete the below tests
+
+TEST (AddingOrdersToBuy, ValidInput) {
+    Order newOrder( "BT.A", Order::Buy, 300, 54.67, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
 }
 
-TEST (OrderBookTest, test3)
-{
+TEST (AddingOrdersToBuy, ZeroInput) {
+    Order newOrder( "BT.A", Order::Buy, 300, 0.0, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
+}
+
+TEST (AddingOrdersToBuy, NegativeInput) {
+    Order newOrder( "BT.A", Order::Buy, 300, -54.67, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
+}
+
+TEST (AddingOrdersToSell, ValidInput) {
+    Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
+}
+
+TEST (AddingOrdersToSell, ZeroInput) {
+    Order newOrder( "BT.A", Order::Sell, 300, 0.0, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
+}
+
+TEST (AddingOrdersToSell, NegativeInput) {
+    Order newOrder( "BT.A", Order::Sell, 300, -54.67, 1 );
+    
+    OrderBook book();
+    book.addOrder(newOrder);
 }
 
 
