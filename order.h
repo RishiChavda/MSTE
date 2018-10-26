@@ -48,8 +48,11 @@ public:
         // and client id of an order into a single string and returns the string 
     
     bool operator> (const Order &o1);
-        // compares if a price of this object is greater than the price of the specified '01'
+        // returns true if the price of this object is greater than the price of the specified '01' else returns false
     
+    bool operator== (const Order &o1);
+        // returns true if the specified 'o1' is equal to ths object else returns falsee
+
     bool isBuy();
         // returns if the order is a buy or sell order
 };
@@ -81,5 +84,10 @@ bool Order::operator> (const Order &c1) {
     return getLimitPrice() > c1.getLimitPrice();
 }
 
+inline
+bool Order::operator== (const Order &o1) {
+    return symbol_ == o1.symbol_ && direction_ == o1.direction_ && quantity_ == o1.quantity_ 
+            && limitPrice_ == o1.limitPrice_ && clientId_ == o1.clientId_;
+}
 
 #endif // Order_h_
