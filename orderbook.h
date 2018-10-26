@@ -12,13 +12,16 @@ private:
     OrderQueue sellOrders_;
 public:
     OrderBook() = default;
+    
     OrderBook(OrderQueue buys, OrderQueue sells);
+        // Constructs and orderbook object with a specified 'buy' queue and 'sell' queue
+        
     void addOrder(int client, Order& order);
+        // Adds an order to either the buy or sell queue based on the order type
 
-    /**
-     * Look for matches, execute the matches, and return the fills
-     */
     Match findAndExecuteMatches();
+        // Searches for orders than can create a trade, performs a trade 
+        // on the objects and returns the remaining match
 };
 
 std::istream& operator>>( std::istream&, Order& );

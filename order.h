@@ -19,14 +19,30 @@ private:
     double limitPrice_;
     int clientId_;
 public:
-    Order( const std::string& symbol, Direction direction, size_t quantity, double limitPrice, int clientId );
-    std::string serialise() const;
-    double getLimitPrice() const;
     Order() = default;
+
+    Order( const std::string& symbol, Direction direction, size_t quantity, double limitPrice, int clientId );
+        // Constructs and order object with the specified parameters
+
+    std::string serialise() const;
+        // Converts the symbol, direction, quantity, price 
+        // and client id of an order into a single serialised string and returns the string
+    
+    double getLimitPrice() const;
+        // returns the price of an order
+        
     std::string toString() const;
+        // Converts the symbol, direction, quantity, price 
+        // and client id of an order into a single string and returns the string 
+    
     int clientId() const;
+        // returns the client id of an order
+    
     bool operator> (const Order &o1);
+        // compares if a price of this object is greater than the price of the specified '01'
+    
     bool isBuy();
+        // returns if the order is a buy or sell order
 };
 
 std::istream& operator>>( std::istream& is, Order& order );
