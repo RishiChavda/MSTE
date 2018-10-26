@@ -50,7 +50,7 @@ public:
     bool operator> (const Order &o1);
         // returns true if the price of this object is greater than the price of the specified '01' else returns false
     
-    bool operator== (const Order &o1);
+    bool operator== (const Order &o1) const;
         // returns true if the specified 'o1' is equal to ths object else returns falsee
 
     bool isBuy();
@@ -85,9 +85,9 @@ bool Order::operator> (const Order &c1) {
 }
 
 inline
-bool Order::operator== (const Order &o1) {
-    return symbol_ == o1.symbol_ && direction_ == o1.direction_ && quantity_ == o1.quantity_ 
-            && limitPrice_ == o1.limitPrice_ && clientId_ == o1.clientId_;
+bool Order::operator== (const Order &o1) const {
+    return this->symbol_ == o1.symbol_ && this->direction_ == o1.direction_ && this->quantity_ == o1.quantity_ 
+            && this->limitPrice_ == o1.limitPrice_ && this->clientId_ == o1.clientId_;
 }
 
 #endif // Order_h_
