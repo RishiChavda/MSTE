@@ -23,43 +23,52 @@ TEST (Constructor, ValidInput) {
 TEST (AddingOrdersToBuy, ValidInput) {
     Order newOrder( "BT.A", Order::Buy, 300, 54.67, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
+    
+    Order ord = book.getBuys().getHighestPriority();
+    
+    EXPECT_EQ(ord.getSymbol(), "BT.A");
+    EXPECT_EQ(ord.getDirection(), Order::Buy);
+    EXPECT_EQ(ord.getQuantity(), 300);
+    EXPECT_EQ(ord.getLimitPrice(), 54.67);
+    EXPECT_EQ(ord.clientId(), 1);
+
 }
 
 TEST (AddingOrdersToBuy, ZeroInput) {
     Order newOrder( "BT.A", Order::Buy, 300, 0.0, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
 }
 
 TEST (AddingOrdersToBuy, NegativeInput) {
     Order newOrder( "BT.A", Order::Buy, 300, -54.67, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
 }
 
 TEST (AddingOrdersToSell, ValidInput) {
     Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
 }
 
 TEST (AddingOrdersToSell, ZeroInput) {
     Order newOrder( "BT.A", Order::Sell, 300, 0.0, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
 }
 
 TEST (AddingOrdersToSell, NegativeInput) {
     Order newOrder( "BT.A", Order::Sell, 300, -54.67, 1 );
     
-    OrderBook book();
-    book.addOrder(newOrder);
+    OrderBook book;
+    book.addOrder(1, newOrder);
 }
 
 

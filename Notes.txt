@@ -1,16 +1,10 @@
 TODO
 
-THURSDAY
-- C - Finish server handling orders
-- R - OrderQueue/OrderBook
-
-FRIDAY
+- OrderQueue/OrderBook
 - Revise class diagram
 - Testing
 - Document/Comments
 - Code review
-
-- Template class for OrderBook
 
 PROCESS
 1. Client connects to server
@@ -33,3 +27,4 @@ PROCESS
 - (R) Implemented OrderQueue and OrderBook methods
 - (R) Added OrderBook class and OrderQueue insertion
 - (R) Tested OrderQueue and OrderBook
+- (R) Insert buy and sell Orders to the OrderBook OrderQueues

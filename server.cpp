@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
         }
         
 		boost::asio::io_service io_service;
-		std::cout<<"Started server listening on localhost:" << argv[1] << "\n"; //TASK make 3000 dynamic
+		std::cout<<"Started server listening on localhost:" << argv[1] << "\n";
         int port = std::stoi(argv[1]);
 		tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), port));
 		int clientNum=0;

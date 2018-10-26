@@ -36,7 +36,7 @@ TEST(IsBuy, ValidReturnBuy) {
 TEST(IsBuy, ValidReturnSell) {
     Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
 	
-    EXPECT_EQ(false, newOrder.isBuy());
+    EXPECT_EQ(true, newOrder.isBuy());
 }
 
 TEST(ClientId, ValidValue) {
