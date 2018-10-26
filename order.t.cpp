@@ -30,13 +30,13 @@ TEST(Serialise, ValidInputSell) {
 TEST(IsBuy, ValidReturnBuy) {
     Order newOrder( "BT.A", Order::Buy, 300, 54.67, 1 );
 	
-    EXPECT_EQ(true, newOrder.isBuy());
+    EXPECT_TRUE(newOrder.isBuy());
 }
 
 TEST(IsBuy, ValidReturnSell) {
     Order newOrder( "BT.A", Order::Sell, 300, 54.67, 1 );
 	
-    EXPECT_EQ(true, newOrder.isBuy());
+    EXPECT_FALSE(newOrder.isBuy());
 }
 
 TEST(ClientId, ValidValue) {
